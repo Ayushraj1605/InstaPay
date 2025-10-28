@@ -9,8 +9,14 @@ If you're getting the "Failed to verify login code" error, it's because the thir
 Create a `.env` file in the project root with your actual credentials:
 
 ```bash
-# Copy the example file
+# On macOS / Linux (or Git Bash on Windows)
 cp env.example .env
+
+# On Windows PowerShell use:
+Copy-Item -Path env.example -Destination .env
+
+# Or using the cross-platform npm tool (if available):
+npx cpx env.example .env
 ```
 
 Then edit `.env` with your real values:
@@ -51,6 +57,42 @@ VITE_BASE_USDC_ADDRESS=0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
 2. Open the app in your browser
 3. Try logging in with your email
 4. Check the browser console for any remaining errors
+
+## ✅ Running tests & verification
+
+After configuring your environment variables and installing dependencies, run the test suite to verify everything works.
+
+Install dependencies (PowerShell):
+
+```powershell
+npm install
+```
+
+Run tests (headless):
+
+```powershell
+npm run test
+```
+
+Run tests in watch mode (interactive):
+
+```powershell
+npm run test:watch
+```
+
+Open Vitest UI:
+
+```powershell
+npm run test:ui
+```
+
+Run coverage report:
+
+```powershell
+npm run coverage
+```
+
+If tests fail, open `npm run test:watch` or `npm run test:ui` to get more details and iterate locally.
 
 ## 🔧 Troubleshooting
 

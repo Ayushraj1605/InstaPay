@@ -345,3 +345,108 @@ MIT License - see LICENSE file for details
 ---
 
 **Note:** This is a production-ready application built with modern web technologies. The app uses real thirdweb APIs and can handle actual cryptocurrency transactions. Always test with small amounts first and verify all configuration before production use.
+
+## 🧪 Tests & Professional workflows
+
+This project includes a test suite (Vitest + Testing Library) and common professional scripts for linting, type-checking, building, and previewing the app.
+
+Where to find tests
+- All tests are under the `test/` folder. Key files include:
+	- `test/contracts.test.ts`
+	- `test/LoginForm.test.tsx`
+	- `test/supabase.test.ts`
+	- `test/thirdwebAPI.test.ts`
+
+Install dependencies
+Run this from the project root in PowerShell (Windows):
+
+```powershell
+npm install
+```
+
+Run tests
+- Run the full test suite (headless):
+
+```powershell
+npm run test
+```
+
+- Run tests in watch/dev mode (useful while developing):
+
+```powershell
+npm run test:watch
+```
+
+- Open the Vitest UI (interactive):
+
+```powershell
+npm run test:ui
+```
+
+- Generate coverage report:
+
+```powershell
+npm run coverage
+```
+
+Run a single test file (example):
+
+```powershell
+npx vitest run test/contracts.test.ts
+```
+
+Other professional scripts
+- Start dev server:
+
+```powershell
+npm run dev
+```
+
+- Type-check + build (production):
+
+```powershell
+npm run build
+```
+
+- Preview production build locally:
+
+```powershell
+npm run preview
+```
+
+- Lint the codebase:
+
+```powershell
+npm run lint
+```
+
+Recommended CI steps
+- Typical CI should run the following sequence to validate a PR or commit:
+	1. Install dependencies: `npm ci`
+	2. Type-check: `npm run build` (this runs `tsc -b` as part of the `build` script)
+	3. Run lint: `npm run lint`
+	4. Run tests: `npm run test` (optional: `npm run coverage` to assert coverage thresholds)
+
+Example GitHub Actions job (snippet):
+
+```yaml
+# jobs.tests:
+#   runs-on: ubuntu-latest
+#   steps:
+#     - uses: actions/checkout@v4
+#     - name: Use Node.js
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: '18'
+#     - run: npm ci
+#     - run: npm run build
+#     - run: npm run lint
+#     - run: npm run test
+```
+
+Notes & tips
+- Use PowerShell on Windows: commands above are PowerShell-compatible. If you're on macOS/Linux, the commands are the same in a POSIX shell.
+- The `build` script includes `tsc -b` (type-check) then `vite build` — CI should run it to catch TypeScript errors early.
+- If tests fail locally, run `npm run test:watch` to iterate quickly and open the Vitest UI for interactive debugging.
+
+If you'd like, I can also add a small GitHub Actions workflow file to `.github/workflows/ci.yml` that implements the recommended CI steps.

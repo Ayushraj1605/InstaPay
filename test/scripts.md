@@ -1,34 +1,58 @@
 # Test Scripts for InstaPay
 
-All test code is in the `test/` directory and does not affect production code.
+All test code is in the `test/` directory and imports the app code from `src/`.
 
-## Install Test Dependencies
+This project exposes convenient npm scripts (see `package.json`) for working with tests locally and in CI.
 
-Run this in PowerShell (from `stable-pay`):
-
-```powershell
-npm install --save-dev vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
-```
-
-## Run All Tests
+Install dependencies (PowerShell):
 
 ```powershell
-npx vitest run
+npm install
 ```
 
-## Run Tests with UI (watch mode)
+Run all tests (headless):
 
 ```powershell
-npx vitest --ui
+npm run test
 ```
 
-## Run Coverage Report
+Run tests in watch mode / interactive development:
 
 ```powershell
-npx vitest run --coverage
+npm run test:watch
 ```
 
-## Notes
-- All test files are in `test/` and import from `src/`.
-- No changes are made to production code.
-- If you see missing module errors, ensure dependencies are installed.
+Open Vitest UI (browser-based test runner):
+
+```powershell
+npm run test:ui
+```
+
+Generate coverage report:
+
+```powershell
+npm run coverage
+```
+
+Run a single test file (example):
+
+```powershell
+npx vitest run test/contracts.test.ts
+```
+
+Notes
+- If you see missing module errors, ensure `npm install` completed successfully.
+- The `test` scripts are powered by Vitest with a `jsdom` environment configured in `package.json`.
+- Use `npm run test:watch` while developing to get a fast feedback loop and re-run tests on file changes.
+
+CI recommendation
+- Use `npm ci` to install dependencies in CI, then run the following checks:
+
+```powershell
+npm ci
+npm run build   # includes tsc type checking
+npm run lint
+npm run test
+```
+
+This order ensures type errors are caught before running tests and lint enforces code quality.
